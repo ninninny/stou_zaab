@@ -2,7 +2,11 @@ package data;
 
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import appUI.mainMenu;
 import appUI.styleSetter;
 
 public class tableFood extends styleSetter{
@@ -27,11 +31,22 @@ public class tableFood extends styleSetter{
 			}
 		};
 		tFood.setModel(tableModel);
-		setUIfont(tFood);
+		setStyle(tFood);
 		
 		modelFood = (DefaultTableModel)tFood.getModel();
 		showData();
 		
+		tFood.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+	        public void valueChanged(ListSelectionEvent event) {
+	            int rowClick = tFood.getSelectedRow();
+	            String foodName = tFood.getValueAt(rowClick, 0).toString();
+	            //System.out.println(foodName);
+	            String foodPrice = tFood.getValueAt(rowClick, 1).toString();
+	            //System.out.println(foodPrice);
+	            mainMenu.editFood();
+	        }
+	    });
+
 		return tFood;
 		
 	}
@@ -45,11 +60,13 @@ public class tableFood extends styleSetter{
 			}
 			String sql = "SELECT * FROM food";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
+			
 			int row = 0;
 			while(rs.next()) {
 				modelFood.addRow(new Object[0]);
 				modelFood.setValueAt(rs.getString("food_name"), row, 0);
 				modelFood.setValueAt(rs.getString("food_cost"), row, 1);
+				modelFood.setValueAt("·°È‰¢", row, 2);
 				row++;
 			}
 			tFood.setModel(modelFood);

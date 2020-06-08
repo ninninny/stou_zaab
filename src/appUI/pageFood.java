@@ -1,6 +1,5 @@
 package appUI;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,14 +15,16 @@ public class pageFood extends styleSetter implements ActionListener{
 		
 		pageFood = new JPanel();
 		setPanel(pageFood,0, 0, 375, 587,colorWhite);
-		setLabel ("ข้อมูลเมนูอาหาร", "h1",20, 40, 200, 24,colorBlack, pageFood);
+		setLabel ("ข้อมูลเมนูอาหาร", "h1",20, 30, 200, 24,colorBlack, pageFood);
 		
 		JScrollPane scrollTable = new JScrollPane();
-		scrollTable.setPreferredSize(new Dimension(330,425));
+		scrollTable.setPreferredSize(new Dimension(330,420));
 		
 		tableFood tFood = new tableFood();
+	
 		scrollTable.setViewportView(tFood.dataTable());
-		scrollTable.setBounds(20,80,330,425);
+		scrollTable.setBounds(20,70,330,420);
+		scrollTable.setBorder(BorderFactory.createEmptyBorder());
 		pageFood.add(scrollTable);
 		
 		return pageFood;

@@ -69,6 +69,14 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		mainBody.repaint();
 	}
 	
+	public static void editFood() {
+		mainBody.removeAll();
+		editFood eFood = new editFood();
+		mainBody.add(eFood.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
 	public static void toCustomer() {
 		mainBody.removeAll();
 		pageCustomer pCust = new pageCustomer();

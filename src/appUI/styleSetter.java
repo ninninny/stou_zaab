@@ -3,18 +3,16 @@ package appUI;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.table.JTableHeader;
 
 public class styleSetter {
 	
 	Color colorOrange1 = new Color(238,122,5);
+	Color colorOrange2 = new Color(250,220,188);
 	Color colorRed1 = new Color(238,81,63);
+	Color colorLightGray = new Color(226,226,226);
 	Color colorWhite = Color.white;
 	Color colorBlack = Color.black;
 	String themeFont = "Tahoma";
@@ -43,21 +41,36 @@ public class styleSetter {
 		id.setBounds(x, y, w, h);
 		id.setBackground(c);
 		id.setLayout(null);
-		id.setBorder(BorderFactory.createLineBorder(Color.white));
+		id.setBorder(BorderFactory.createLineBorder(colorWhite));
 	}
 	public void setPanel(JPanel id,int x, int y, int w, int h,Color c, JPanel target) {
 		id.setBounds(x, y, w, h);
 		id.setBackground(c);
 		id.setLayout(null);
-		id.setBorder(BorderFactory.createLineBorder(Color.white));
+		id.setBorder(BorderFactory.createLineBorder(colorWhite));
 		target.add(id);
 	}
 	public void setPanel(JPanel id,int x, int y, int w, int h,Color c, JFrame target) {
 		id.setBounds(x, y, w, h);
 		id.setBackground(c);
 		id.setLayout(null);
-		id.setBorder(BorderFactory.createLineBorder(Color.white));
+		id.setBorder(BorderFactory.createLineBorder(colorWhite));
 		target.getContentPane().add(id);
+	}
+	public void setStyle(JTable t) {
+		setUIfont(t);
+		t.setBackground(colorWhite);
+		t.setForeground(colorBlack);
+		t.setSelectionBackground(colorOrange2);
+		t.setRowHeight(40);
+		t.setShowGrid(false);
+		t.setShowHorizontalLines(true);
+		t.setGridColor(colorLightGray);
+		
+		JTableHeader header = t.getTableHeader();
+	    header.setBackground(colorWhite);
+	    header.setForeground(colorBlack);
+	    
 	}
 
 	/* SET FONT STYLE FOR ALL UI ELEMENT */
