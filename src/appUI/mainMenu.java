@@ -34,7 +34,6 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		
 		/*topMenu*/
 		topMenu = new JPanel();
 		setPanel(topMenu,0, 0, 375, 80,colorRed1,frame);
@@ -47,7 +46,6 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		/*mainBody*/
 		mainBody = new JPanel();
 		setPanel(mainBody,0,80,375,587,colorWhite,frame);
-		
 		pageHome pHome = new pageHome();
 		mainBody.add(pHome.setPage());
 		
@@ -69,7 +67,7 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		mainBody.repaint();
 	}
 	
-	public static void editFood() {
+	public static void toEditFood() {
 		mainBody.removeAll();
 		editFood eFood = new editFood();
 		mainBody.add(eFood.setPage());
@@ -90,10 +88,6 @@ public class mainMenu  extends styleSetter implements ActionListener{
 			toHome();
 		}
 	};
-	
-
-	
-	
 	
 }
 

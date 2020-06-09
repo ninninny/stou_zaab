@@ -1,12 +1,13 @@
 package data;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import appUI.mainMenu;
+import appUI.editFood;
+import appUI.mainMenu; 
 import appUI.styleSetter;
 
 public class tableFood extends styleSetter{
@@ -14,17 +15,18 @@ public class tableFood extends styleSetter{
 	private DefaultTableModel modelFood;
 	JTable tFood;
 	Connection conn = MyConnect.getConnection();
+	String foodID,foodName, foodPrice;
 	
 	public JTable dataTable() {
 		
 		tFood = new JTable();
 		Object data[][] = {
-				{null, null, null},
-				{null, null, null},
-				{null, null, null},
-				{null, null, null}
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null}
 		};
-		String columns[] = {"ชื่อเมนู","ราคา", ""};
+		String columns[] = {"","ชื่อเมนู","ราคา", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -36,16 +38,16 @@ public class tableFood extends styleSetter{
 		modelFood = (DefaultTableModel)tFood.getModel();
 		showData();
 		
-		tFood.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-	        public void valueChanged(ListSelectionEvent event) {
-	            int rowClick = tFood.getSelectedRow();
-	            String foodName = tFood.getValueAt(rowClick, 0).toString();
-	            //System.out.println(foodName);
-	            String foodPrice = tFood.getValueAt(rowClick, 1).toString();
-	            //System.out.println(foodPrice);
-	            mainMenu.editFood();
-	        }
-	    });
+		tFood.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent me) {
+				int rowClick = tFood.getSelectedRow();
+				foodID = tFood.getValueAt(rowClick, 0).toString();
+	            foodName = tFood.getValueAt(rowClick, 1).toString();
+	            foodPrice = tFood.getValueAt(rowClick, 2).toString();
+	            editFood.getData(foodID,foodName,foodPrice);
+	            mainMenu.toEditFood();
+			}
+		});
 
 		return tFood;
 		
@@ -64,9 +66,10 @@ public class tableFood extends styleSetter{
 			int row = 0;
 			while(rs.next()) {
 				modelFood.addRow(new Object[0]);
-				modelFood.setValueAt(rs.getString("food_name"), row, 0);
-				modelFood.setValueAt(rs.getString("food_cost"), row, 1);
-				modelFood.setValueAt("แก้ไข", row, 2);
+				modelFood.setValueAt(rs.getString("food_id"), row, 0);
+				modelFood.setValueAt(rs.getString("food_name"), row, 1);
+				modelFood.setValueAt(rs.getString("food_cost"), row, 2);
+				modelFood.setValueAt("แก้ไข", row, 3);
 				row++;
 			}
 			tFood.setModel(modelFood);
@@ -74,5 +77,7 @@ public class tableFood extends styleSetter{
 			e.printStackTrace();
 		}
 	} 
+	
+	
 
 }

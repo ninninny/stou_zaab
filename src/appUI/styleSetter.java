@@ -12,6 +12,7 @@ public class styleSetter {
 	Color colorOrange1 = new Color(238,122,5);
 	Color colorOrange2 = new Color(250,220,188);
 	Color colorRed1 = new Color(238,81,63);
+	Color colorGray = new Color(129,138,145);
 	Color colorLightGray = new Color(226,226,226);
 	Color colorWhite = Color.white;
 	Color colorBlack = Color.black;
@@ -57,6 +58,11 @@ public class styleSetter {
 		id.setBorder(BorderFactory.createLineBorder(colorWhite));
 		target.getContentPane().add(id);
 	}
+	protected void setTextField(JTextField id,int x, int y, int w, int h, JPanel target) {
+		setUIfont(id);
+		id.setBounds(x, y, w, h);
+		target.add(id);
+	}
 	public void setStyle(JTable t) {
 		setUIfont(t);
 		t.setBackground(colorWhite);
@@ -91,7 +97,10 @@ public class styleSetter {
 	public void setUIfont(JButton e) {
 		e.setFont(new Font(themeFont, Font.BOLD, 12));
 	}
+	public void setUIfont(JTextField e) {
+		e.setFont(new Font(themeFont, Font.BOLD, 12));
+	}
 	public void setUIfont(JTable e) {
-		e.setFont(new Font(themeFont, Font.PLAIN, 16));
+		e.setFont(new Font(themeFont, Font.PLAIN, 14));
 	}
 }
