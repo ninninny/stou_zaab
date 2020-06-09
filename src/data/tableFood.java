@@ -15,7 +15,8 @@ public class tableFood extends styleSetter{
 	private DefaultTableModel modelFood;
 	JTable tFood;
 	Connection conn = MyConnect.getConnection();
-	String foodID,foodName, foodPrice;
+	int foodID;
+	String foodName, foodPrice;
 	
 	public JTable dataTable() {
 		
@@ -41,7 +42,7 @@ public class tableFood extends styleSetter{
 		tFood.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				int rowClick = tFood.getSelectedRow();
-				foodID = tFood.getValueAt(rowClick, 0).toString();
+				foodID = (int) tFood.getValueAt(rowClick, 0);
 	            foodName = tFood.getValueAt(rowClick, 1).toString();
 	            foodPrice = tFood.getValueAt(rowClick, 2).toString();
 	            editFood.getData(foodID,foodName,foodPrice);
@@ -50,7 +51,6 @@ public class tableFood extends styleSetter{
 		});
 
 		return tFood;
-		
 	}
 	
 	public void showData() {
@@ -66,7 +66,7 @@ public class tableFood extends styleSetter{
 			int row = 0;
 			while(rs.next()) {
 				modelFood.addRow(new Object[0]);
-				modelFood.setValueAt(rs.getString("food_id"), row, 0);
+				modelFood.setValueAt(rs.getInt("food_id"), row, 0);
 				modelFood.setValueAt(rs.getString("food_name"), row, 1);
 				modelFood.setValueAt(rs.getString("food_cost"), row, 2);
 				modelFood.setValueAt("·°È‰¢", row, 3);
@@ -78,6 +78,50 @@ public class tableFood extends styleSetter{
 		}
 	} 
 	
+	public void insertData(String name, String price) {
+		try {
+			String sql = "INSERT INTO food  (food_id, food_name, food_cost) values(null,?,?)";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setString(1,name);
+			pre.setString(2,price);
+			
+			if(pre.executeUpdate() != -1) {
+				mainMenu.toFood();
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 	
+	public void editData(int id, String name, String price) {
+		try {
+				String sql = "UPDATE food SET  food_name =?, food_cost=? WHERE food_id =?";
+				PreparedStatement pre = conn.prepareStatement(sql);
+				pre.setString(1,name);
+				pre.setString(2,price);
+				pre.setInt(3,id);
+				
+				if(pre.executeUpdate() != -1) {
+					mainMenu.toFood();
+				}
+				
+		} catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	public void deleteData(int id) {
+		try {
+			String sql = "DELETE FROM food WHERE food_id = ? ";
+			PreparedStatement pre = conn.prepareStatement(sql);
+			pre.setInt(1,id);
+			
+			if(pre.executeUpdate() != -1) {
+				mainMenu.toFood();
+			}
+		} catch(SQLException e){
+			e.printStackTrace();
+		}
+	}
 
 }

@@ -1,16 +1,16 @@
 package appUI;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
+import data.tableFood;
 
 public class editFood extends styleSetter implements ActionListener{
 	
 	JPanel editFood, btnPanel;
 	JTextField fName, fPrice;
 	JButton btnEdit, btnDelete;
+	static int foodID;
 	static String foodName, foodPrice;
 	
 	public  JPanel setPage() {
@@ -34,21 +34,30 @@ public class editFood extends styleSetter implements ActionListener{
 		
 		btnEdit = new JButton("µ°≈ß");
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
+		btnEdit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				tableFood tFood = new tableFood();
+				tFood.editData(foodID, fName.getText().trim(), fPrice.getText().trim());
+			}
+		});
 		
 		btnDelete = new JButton("≈∫‡¡πŸ");
 		setButton(btnDelete,190, 0,84, 40,colorRed1, colorWhite, btnPanel);
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				tableFood tFood = new tableFood();
+				tFood.deleteData(foodID);
+			}
+		});
 	
-		
 		return editFood;
-		
 	}
 	
-	public static void getData(String a, String b, String c) {
+	public static void getData(int a, String b, String c) {
+		foodID = a;
 		foodName = b;
 		foodPrice = c;
-		System.out.println(a+" "+b+" "+c);
 	}
-
 	
 	public void actionPerformed(ActionEvent e){  
 		if(e.getSource() == null) {
