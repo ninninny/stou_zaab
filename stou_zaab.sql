@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 06, 2020 at 04:37 PM
+-- Generation Time: Jun 09, 2020 at 03:06 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -52,7 +52,7 @@ CREATE TABLE `customer` (
 --
 
 CREATE TABLE `food` (
-  `food_id` varchar(5) NOT NULL,
+  `food_id` int(5) NOT NULL,
   `food_name` varchar(30) NOT NULL,
   `food_cost` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -62,16 +62,16 @@ CREATE TABLE `food` (
 --
 
 INSERT INTO `food` (`food_id`, `food_name`, `food_cost`) VALUES
-('00001', 'ส้มตำไทย', 40),
-('00002', 'ส้มตำปู', 40),
-('00003', 'ส้มตำปลาร้า', 50),
-('00004', 'ส้มตำไข่เค็ม', 50),
-('00005', 'ส้มตำถาด', 70),
-('00006', 'ลาบหมู / ไก่', 50),
-('00007', 'น้ำตกหมู', 50),
-('00008', 'คอหมูย่าง', 60),
-('00009', 'ต้มแซ่บ', 60),
-('00010', 'ข้าวเหนียว', 10);
+(1, 'ส้มตำไทย', 40),
+(2, 'ส้มตำปู', 40),
+(3, 'ส้มตำปลาร้า', 50),
+(4, 'ส้มตำไข่เค็ม', 50),
+(5, 'ส้มตำถาด', 70),
+(6, 'ลาบหมู / ไก่', 50),
+(7, 'น้ำตกหมู', 50),
+(8, 'คอหมูย่าง', 60),
+(9, 'ต้มแซ่บ', 60),
+(10, 'ข้าวเหนียว', 10);
 
 -- --------------------------------------------------------
 
@@ -129,6 +129,16 @@ ALTER TABLE `order`
 --
 ALTER TABLE `staff`
   ADD PRIMARY KEY (`staff_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `food`
+--
+ALTER TABLE `food`
+  MODIFY `food_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
