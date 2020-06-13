@@ -8,9 +8,8 @@ import data.tableCustomer;
 public class addCustomer extends styleSetter implements ActionListener{
 	
 	JPanel addCustomer, btnPanel;
-	JTextField fName, fPrice;
+	JTextField cName, cPhone;
 	JButton btnEdit, btnDelete;
-	static String foodID, foodName, foodPrice;
 	
 	public  JPanel setPage() {
 		
@@ -20,11 +19,11 @@ public class addCustomer extends styleSetter implements ActionListener{
 		setLabel ("™◊ËÕ-π“¡ °ÿ≈",null,20, 100, 200, 24,colorGray, addCustomer);
 		setLabel ("‡∫Õ√Ï‚∑√»—æ∑Ï",null,20, 200, 200, 24,colorGray, addCustomer);
 		
-		fName = new JTextField();
-		setTextField(fName, 20, 130,330,40,addCustomer);
+		cName = new JTextField();
+		setTextField(cName, 20, 130,330,40,addCustomer);
 		
-		fPrice = new JTextField();
-		setTextField(fPrice, 20, 230,330,40,addCustomer);
+		cPhone = new JTextField();
+		setTextField(cPhone, 20, 230,330,40,addCustomer);
 		
 		btnPanel = new JPanel();
 		setPanel(btnPanel,0, 500, 375, 60,colorWhite, addCustomer);
@@ -33,8 +32,8 @@ public class addCustomer extends styleSetter implements ActionListener{
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableCustomer tCust = new tableCustomer();
-				tCust.insertData(fName.getText().trim(), fPrice.getText().trim());
+				tableCustomer t = new tableCustomer();
+				t.insertData(cName.getText().trim(), cPhone.getText().trim());
 			}
 		});
 		

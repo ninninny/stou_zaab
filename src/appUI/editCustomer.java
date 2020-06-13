@@ -36,8 +36,8 @@ public class editCustomer extends styleSetter implements ActionListener{
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableCustomer tCust = new tableCustomer();
-				tCust.editData(custID, cName.getText().trim(), cPhone.getText().trim());
+				tableCustomer t = new tableCustomer();
+				t.editData(custID, cName.getText().trim(), cPhone.getText().trim());
 			}
 		});
 		
@@ -45,8 +45,8 @@ public class editCustomer extends styleSetter implements ActionListener{
 		setButton(btnDelete,190, 0,84, 40,colorRed1, colorWhite, btnPanel);
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableCustomer tCust = new tableCustomer();
-				tCust.deleteData(custID);
+				tableCustomer t = new tableCustomer();
+				t.deleteData(custID);
 			}
 		});
 	

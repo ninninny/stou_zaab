@@ -36,8 +36,8 @@ public class editFood extends styleSetter implements ActionListener{
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableFood tFood = new tableFood();
-				tFood.editData(foodID, fName.getText().trim(), fPrice.getText().trim());
+				tableFood t = new tableFood();
+				t.editData(foodID, fName.getText().trim(), fPrice.getText().trim());
 			}
 		});
 		
@@ -45,8 +45,8 @@ public class editFood extends styleSetter implements ActionListener{
 		setButton(btnDelete,190, 0,84, 40,colorRed1, colorWhite, btnPanel);
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableFood tFood = new tableFood();
-				tFood.deleteData(foodID);
+				tableFood t = new tableFood();
+				t.deleteData(foodID);
 			}
 		});
 	
