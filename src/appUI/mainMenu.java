@@ -91,6 +91,22 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		mainBody.repaint();
 	}
 	
+	public static void toEditCustomer() {
+		mainBody.removeAll();
+		editCustomer eCust = new editCustomer();
+		mainBody.add(eCust.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toAddCustomer() {
+		mainBody.removeAll();
+		addCustomer aCust = new addCustomer();
+		mainBody.add(aCust.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
 	public void actionPerformed(ActionEvent e){  
 		if(e.getSource() == btnMainMenu) {
 			toHome();
