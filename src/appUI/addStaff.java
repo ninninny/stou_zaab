@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import data.tableStaff;
 
-public class addStaff extends styleSetter implements ActionListener{
+public class addStaff extends styleSetter {
 	
 	JPanel addStaff, btnPanel;
 	JTextField sName, sPhone;
@@ -47,11 +47,5 @@ public class addStaff extends styleSetter implements ActionListener{
 	
 		return addStaff;
 	}
-	
-	public void actionPerformed(ActionEvent e){  
-		if(e.getSource() == null) {
-			
-		} 
-	}  
 
 }

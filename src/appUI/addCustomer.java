@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import data.tableCustomer;
 
-public class addCustomer extends styleSetter implements ActionListener{
+public class addCustomer extends styleSetter {
 	
 	JPanel addCustomer, btnPanel;
 	JTextField cName, cPhone;
@@ -47,11 +47,5 @@ public class addCustomer extends styleSetter implements ActionListener{
 	
 		return addCustomer;
 	}
-	
-	public void actionPerformed(ActionEvent e){  
-		if(e.getSource() == null) {
-			
-		} 
-	}  
 
 }

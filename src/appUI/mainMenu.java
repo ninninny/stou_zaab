@@ -142,7 +142,7 @@ public class mainMenu  extends styleSetter implements ActionListener{
 	
 	public static void toOrder() {
 		mainBody.removeAll();
-		pageStaff p = new pageStaff();
+		pageOrder p = new pageOrder();
 		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
@@ -156,9 +156,9 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		mainBody.repaint();
 	}
 	
-	public static void toAddOreder() {
+	public static void toAddOrder() {
 		mainBody.removeAll();
-		addStaff p = new addStaff();
+		addOrder p = new addOrder();
 		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();

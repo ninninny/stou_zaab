@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import data.tableFood;
 
-public class addFood extends styleSetter implements ActionListener{
+public class addFood extends styleSetter {
 	
 	JPanel addFood, btnPanel;
 	JTextField fName, fPrice;
@@ -48,10 +48,5 @@ public class addFood extends styleSetter implements ActionListener{
 		return addFood;
 	}
 	
-	public void actionPerformed(ActionEvent e){  
-		if(e.getSource() == null) {
-			
-		} 
-	}  
 
 }
