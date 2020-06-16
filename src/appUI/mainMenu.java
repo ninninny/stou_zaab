@@ -165,7 +165,11 @@ public class mainMenu  extends styleSetter implements ActionListener{
 	}
 	
 	public static void toBill() {
-		
+		mainBody.removeAll();
+		pageBill p = new pageBill();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
 	}
 	
 	public void actionPerformed(ActionEvent e){  

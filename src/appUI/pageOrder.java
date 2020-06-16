@@ -15,7 +15,7 @@ public class pageOrder extends styleSetter {
 		
 		pageOrder = new JPanel();
 		setPanel(pageOrder,0, 0, 375, 587,colorWhite);
-		setLabel ("ข้อมูลคำสั่งซื้อ", "h1",20, 30, 200, 24,colorBlack, pageOrder);
+		setLabel ("ข้อมูลคำสั่งซื้อ", "h1",20, 25, 200, 40,colorBlack, pageOrder);
 		
 		JScrollPane scrollTable = new JScrollPane();
 		scrollTable.setPreferredSize(new Dimension(335,420));

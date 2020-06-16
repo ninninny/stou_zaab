@@ -3,6 +3,8 @@ package data;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -12,22 +14,23 @@ import appUI.styleSetter;
 
 public class tableBill extends styleSetter{
 	
-	private DefaultTableModel modelFood;
+	private DefaultTableModel modelBill;
 	JTable tBill;
 	Connection conn = MyConnect.getConnection();
 	int foodID;
 	String foodName, foodPrice;
+	public ArrayList<Integer> billList;
 	
 	public JTable dataTable() {
 		
 		tBill = new JTable();
 		Object data[][] = {
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null}
+				{null, null, null},
+				{null, null, null},
+				{null, null, null},
+				{null, null, null}
 		};
-		String columns[] = {"ออเดอร์","เลขที่บิล","อาหาร", "จำนวน", ""};
+		String columns[] = {"เลขที่บิล","ยอดรวม(บาท)",""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -36,7 +39,7 @@ public class tableBill extends styleSetter{
 		tBill.setModel(tableModel);
 		setStyle(tBill);
 		
-		modelFood = (DefaultTableModel)tBill.getModel();
+		modelBill = (DefaultTableModel)tBill.getModel();
 		showData();
 		
 		/*tOrder.addMouseListener(new MouseAdapter() {
@@ -57,61 +60,63 @@ public class tableBill extends styleSetter{
 		try {
 			int totalRow = tBill.getRowCount()-1;
 			while(totalRow>-1) {
-				modelFood.removeRow(totalRow);
+				modelBill.removeRow(totalRow);
 				totalRow--;
 			}
-			/*String sql = "SELECT * FROM order";
+			String sql = "SELECT * FROM bill "
+					+ " INNER JOIN odr ON bill.bill_odr_id = odr.odr_id"
+					+" INNER JOIN customer ON bill_cust_id = customer.cus_id"
+					+ " INNER JOIN staff ON bill_staff_id = staff.staff_id";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			
 			int row = 0;
 			while(rs.next()) {
-				modelFood.addRow(new Object[0]);
-				modelFood.setValueAt(rs.getInt("food_id"), row, 0);
-				modelFood.setValueAt(rs.getString("food_name"), row, 1);
-				modelFood.setValueAt(rs.getString("food_cost"), row, 2);
-				modelFood.setValueAt("แก้ไข", row, 3);
+				modelBill.addRow(new Object[0]);
+				modelBill.setValueAt(rs.getString("bill_id"), row, 0);
+				modelBill.setValueAt(rs.getString("bill_total"), row, 1);
+				modelBill.setValueAt("เช็คบิล", row, 2);
 				row++;
-			}*/
-			tBill.setModel(modelFood);
+			}
+			tBill.setModel(modelBill);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	} 
 	
-	public void insertData(String name, String price) {
+	public ArrayList<Integer> listBill() {
+		billList = new ArrayList<Integer>();
+		try {
+			String sql = "SELECT * FROM bill";
+			ResultSet rs = conn.createStatement().executeQuery(sql);
+			while(rs.next()) {
+				billList.add(rs.getInt("bill_id"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return billList; 
+	}
+	
+	public void insertData(String name, int amount) {
 		/*try {
-			String sql = "INSERT INTO order  (order_id, order_amount) values(null,?)";
-			PreparedStatement pre = conn.prepareStatement(sql);
-			pre.setString(1,name);
-			pre.setString(2,price);
+			String sql1 = "INSERT INTO bill  (bill_id, bill_total) values(null,0)";
+			PreparedStatement pre1 = conn.prepareStatement(sql1);
 			
-			if(pre.executeUpdate() != -1) {
-				mainMenu.toFood();
+			String sql2 = "INSERT INTO order (odr_id, odr_food_id, odr_amount, odr_price, odr_bill_id) values(null,?,?,?,?)";
+			PreparedStatement pre2 = conn.prepareStatement(sql2);
+			//pre2.setString(1,name);
+			pre2.setInt(3,amount);
+			
+			if(pre2.executeUpdate() != -1) {
+				mainMenu.toOrder();
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
 		}*/
 	}
 	
-	public void editData(int id, String name, String price) {
-		/*try {
-				String sql = "UPDATE food SET  food_name =?, food_cost=? WHERE food_id =?";
-				PreparedStatement pre = conn.prepareStatement(sql);
-				pre.setString(1,name);
-				pre.setString(2,price);
-				pre.setInt(3,id);
-				
-				if(pre.executeUpdate() != -1) {
-					mainMenu.toFood();
-				}
-				
-		} catch(SQLException ex) {
-			ex.printStackTrace();
-		}*/
-	}
-	
 	public void deleteData(int id) {
-		try {
+		/*try {
 			String sql = "DELETE FROM food WHERE food_id = ? ";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setInt(1,id);
@@ -121,7 +126,7 @@ public class tableBill extends styleSetter{
 			}
 		} catch(SQLException e){
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

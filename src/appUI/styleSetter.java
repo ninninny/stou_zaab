@@ -76,7 +76,7 @@ public class styleSetter {
 	    header.setBackground(colorWhite);
 	    header.setForeground(colorBlack);
 	}
-	public void setComboBox(JComboBox<String> id, String p, int x, int y, int w, int h, JPanel target) {
+	public void setComboBox(JComboBox id, String p, int x, int y, int w, int h, JPanel target) {
 		setUIfont(id);
 		id.setBounds(x, y, w, h);
 		id.setEditable(true);
@@ -116,7 +116,7 @@ public class styleSetter {
 	public void setUIfont(JRadioButton e) {
 		e.setFont(new Font(themeFont, Font.PLAIN, 14));
 	}
-	public void setUIfont(JComboBox<String> e) {
+	public void setUIfont(JComboBox e) {
 		e.setFont(new Font(themeFont, Font.PLAIN, 14));
 	}
 }

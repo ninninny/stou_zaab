@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import javax.swing.*;
 import data.tableOrder;
+import data.tableBill;
 import data.tableFood;
 
 public class addOrder extends styleSetter {
@@ -19,7 +20,7 @@ public class addOrder extends styleSetter {
 		
 		addOrder = new JPanel();
 		setPanel (addOrder,0, 0, 375, 587,colorWhite);
-		setLabel ("เพิ่มคำสั่งซื้อ", "h1",20, 30, 200, 24,colorBlack, addOrder);
+		setLabel ("เพิ่มคำสั่งซื้อ", "h1",20, 25, 200, 30,colorBlack, addOrder);
 		setLabel ("อาหาร",null,20, 250, 200, 24,colorGray, addOrder);
 		setLabel ("จำนวน",null,20, 350, 200, 24,colorGray, addOrder);
 		
@@ -31,11 +32,14 @@ public class addOrder extends styleSetter {
 		groupBill.add(rdBillEx);
 		groupBill.add(rdBillNew);
 		
-		Vector<String> billExID = new Vector<String>();
-		billExID.addElement("1");
-		billExID.addElement("2");
+		Vector<Integer> billExID = new Vector<Integer>();
+		tableBill dataBill = new tableBill();
+		int d = dataBill.listBill().size();
+		for( int i=0 ; i<d ; i++) {	
+			billExID.addElement(dataBill.billList.get(i));
+		}
 		
-		JComboBox<String> comboExBill = new JComboBox<>(billExID);
+		JComboBox<Integer> comboExBill = new JComboBox<>(billExID);
 		setComboBox(comboExBill,"เลือก",150, 100, 200, 40,addOrder);
 		
 		Vector<String> foodMenu = new Vector<String>();
@@ -58,8 +62,19 @@ public class addOrder extends styleSetter {
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableOrder t = new tableOrder();
-				t.insertData(comboFood.getSelectedItem().toString(), amount.getText());
+				
+				String f = comboFood.getSelectedItem().toString();
+				int c = Integer.parseInt(amount.getText());
+				if(rdBillEx.isSelected()) {
+					int b = (int) comboExBill.getSelectedItem();
+					tableOrder t = new tableOrder();
+					t.insertData(f,c,b);
+					System.out.println(f+" x "+c+" to bill: "+b);
+				} else if(rdBillNew.isSelected()) {
+					tableBill b = new tableBill();
+					b.insertData(f,c);
+				}
+				
 			}
 		});
 		
