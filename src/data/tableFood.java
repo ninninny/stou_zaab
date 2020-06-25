@@ -3,7 +3,10 @@ package data;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import appUI.editFood;
@@ -17,6 +20,7 @@ public class tableFood extends styleSetter{
 	Connection conn = MyConnect.getConnection();
 	int foodID;
 	String foodName, foodPrice;
+	public ArrayList<String> foodList;
 	
 	public JTable dataTable() {
 		
@@ -27,17 +31,29 @@ public class tableFood extends styleSetter{
 				{null, null, null, null},
 				{null, null, null, null}
 		};
-		String columns[] = {"","ชื่อเมนู","ราคา", ""};
+		String columns[] = {"","Menu","Price", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
 		tFood.setModel(tableModel);
+		tFood.getColumnModel().getColumn(0).setMaxWidth(40);
+		tFood.getColumnModel().getColumn(2).setMaxWidth(80);
+		tFood.getColumnModel().getColumn(3).setMaxWidth(50);
+		tFood.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tFood.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		tFood.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		tFood.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		
 		setStyle(tFood);
 		
 		modelFood = (DefaultTableModel)tFood.getModel();
 		showData();
+		//System.out.print(foodList);
 		
 		tFood.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
@@ -63,6 +79,7 @@ public class tableFood extends styleSetter{
 			String sql = "SELECT * FROM food";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			
+			foodList = new ArrayList<String>();
 			int row = 0;
 			while(rs.next()) {
 				modelFood.addRow(new Object[0]);
@@ -70,6 +87,7 @@ public class tableFood extends styleSetter{
 				modelFood.setValueAt(rs.getString("food_name"), row, 1);
 				modelFood.setValueAt(rs.getString("food_cost"), row, 2);
 				modelFood.setValueAt("แก้ไข", row, 3);
+				foodList.add(rs.getString("food_name"));
 				row++;
 			}
 			tFood.setModel(modelFood);
@@ -77,6 +95,20 @@ public class tableFood extends styleSetter{
 			e.printStackTrace();
 		}
 	} 
+	
+	public ArrayList<String> listFood() {
+		try {
+			String sql = "SELECT * FROM food";
+			ResultSet rs = conn.createStatement().executeQuery(sql);
+			foodList = new ArrayList<String>();
+			while(rs.next()) {
+				foodList.add(rs.getString("food_name"));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return foodList; 
+	}
 	
 	public void insertData(String name, String price) {
 		try {

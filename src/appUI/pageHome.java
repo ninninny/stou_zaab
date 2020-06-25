@@ -48,13 +48,13 @@ public class pageHome extends styleSetter implements ActionListener{
 			mainMenu.toCustomer();
 		} 
 		else if(e.getSource() == btnPageEmployee) {
-
+			mainMenu.toStaff();
 		} 
 		else if(e.getSource() == btnPageBill) {
-
+			mainMenu.toBill();
 		}
 		else if(e.getSource() == btnPageOrder) {
-
+			mainMenu.toOrder();
 		}
 	}  
 

@@ -76,7 +76,18 @@ public class styleSetter {
 		JTableHeader header = t.getTableHeader();
 	    header.setBackground(colorWhite);
 	    header.setForeground(colorBlack);
-	    
+	}
+	public void setComboBox(JComboBox id, String p, int x, int y, int w, int h, JPanel target) {
+		setUIfont(id);
+		id.setBounds(x, y, w, h);
+		id.setEditable(true);
+		id.setSelectedItem(p);
+		target.add(id);
+	}
+	public void setRadioBtn(JRadioButton id,int x, int y, int w, int h, JPanel target) {
+		setUIfont(id);
+		id.setBounds(x, y, w, h);
+		target.add(id);
 	}
 
 	/* SET FONT STYLE FOR ALL UI ELEMENT */
@@ -90,7 +101,7 @@ public class styleSetter {
 		} else if(t=="small") {
 			e.setFont(new Font(themeFont, Font.PLAIN, 11));
 		} else {
-			e.setFont(new Font(themeFont, Font.PLAIN, 12));
+			e.setFont(new Font(themeFont, Font.PLAIN, 14));
 		}
 	}
 
@@ -98,9 +109,15 @@ public class styleSetter {
 		e.setFont(new Font(themeFont, Font.BOLD, 12));
 	}
 	public void setUIfont(JTextField e) {
-		e.setFont(new Font(themeFont, Font.BOLD, 12));
+		e.setFont(new Font(themeFont, Font.PLAIN, 14));
 	}
 	public void setUIfont(JTable e) {
+		e.setFont(new Font(themeFont, Font.PLAIN, 14));
+	}
+	public void setUIfont(JRadioButton e) {
+		e.setFont(new Font(themeFont, Font.PLAIN, 14));
+	}
+	public void setUIfont(JComboBox e) {
 		e.setFont(new Font(themeFont, Font.PLAIN, 14));
 	}
 }

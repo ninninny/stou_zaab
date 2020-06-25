@@ -14,12 +14,5 @@ public class MyConnect {
 		}
 		return null;
 	}
-	
-	/*public static void main(String[] args) {
-		if(getConnection() != null){
-			System.out.println("Database Connected.");
-			} else {
-			System.out.println("Database Connect Failed.");
-			}
-	}*/
+
 }

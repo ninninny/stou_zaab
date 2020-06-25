@@ -3,6 +3,7 @@ package appUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class mainMenu  extends styleSetter implements ActionListener{
@@ -51,42 +52,130 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		
 	} //END mainMenu
 	
+	/*public void goTo(Class p) throws InstantiationException, IllegalAccessException {
+		mainBody.removeAll();
+		Object page = p.newInstance();
+		mainBody.add(((pageHome) page).setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}*/
+	
 	public void toHome() {
 		mainBody.removeAll();
-		pageHome pHome = new pageHome();
-		mainBody.add(pHome.setPage());
+		pageHome p = new pageHome();
+		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
 	}
 	
 	public static void toFood() {
 		mainBody.removeAll();
-		pageFood pFood = new pageFood();
-		mainBody.add(pFood.setPage());
+		pageFood p = new pageFood();
+		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
 	}
 	
 	public static void toEditFood() {
 		mainBody.removeAll();
-		editFood eFood = new editFood();
-		mainBody.add(eFood.setPage());
+		editFood p = new editFood();
+		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
 	}
 	
 	public static void toAddFood() {
 		mainBody.removeAll();
-		addFood aFood = new addFood();
-		mainBody.add(aFood.setPage());
+		addFood p = new addFood();
+		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
 	}
 	
 	public static void toCustomer() {
 		mainBody.removeAll();
-		pageCustomer pCust = new pageCustomer();
-		mainBody.add(pCust.setPage());
+		pageCustomer p = new pageCustomer();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toEditCustomer() {
+		mainBody.removeAll();
+		editCustomer eCust = new editCustomer();
+		mainBody.add(eCust.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toAddCustomer() {
+		mainBody.removeAll();
+		addCustomer aCust = new addCustomer();
+		mainBody.add(aCust.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toStaff() {
+		mainBody.removeAll();
+		pageStaff p = new pageStaff();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toEditStaff() {
+		mainBody.removeAll();
+		editStaff p = new editStaff();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toAddStaff() {
+		mainBody.removeAll();
+		addStaff p = new addStaff();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toOrder() {
+		mainBody.removeAll();
+		pageOrder p = new pageOrder();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toEditOrder() {
+		mainBody.removeAll();
+		editStaff p = new editStaff();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toAddOrder() {
+		mainBody.removeAll();
+		addOrder p = new addOrder();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toBill() {
+		mainBody.removeAll();
+		pageBill p = new pageBill();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
+	public static void toReportBill() {
+		mainBody.removeAll();
+		reportBill p = new reportBill();
+		mainBody.add(p.setPage());
 		mainBody.revalidate();
 		mainBody.repaint();
 	}

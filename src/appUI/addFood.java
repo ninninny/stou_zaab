@@ -5,12 +5,11 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import data.tableFood;
 
-public class addFood extends styleSetter implements ActionListener{
+public class addFood extends styleSetter {
 	
 	JPanel addFood, btnPanel;
 	JTextField fName, fPrice;
 	JButton btnEdit, btnDelete;
-	static String foodID, foodName, foodPrice;
 	
 	public  JPanel setPage() {
 		
@@ -33,8 +32,8 @@ public class addFood extends styleSetter implements ActionListener{
 		setButton(btnEdit,95, 0,84, 40,colorOrange1, colorWhite, btnPanel);
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
-				tableFood tFood = new tableFood();
-				tFood.insertData(fName.getText().trim(), fPrice.getText().trim());
+				tableFood t = new tableFood();
+				t.insertData(fName.getText().trim(), fPrice.getText().trim());
 			}
 		});
 		
@@ -49,10 +48,5 @@ public class addFood extends styleSetter implements ActionListener{
 		return addFood;
 	}
 	
-	public void actionPerformed(ActionEvent e){  
-		if(e.getSource() == null) {
-			
-		} 
-	}  
 
 }
