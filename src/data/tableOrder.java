@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import appUI.editFood;
@@ -34,6 +35,18 @@ public class tableOrder extends styleSetter{
 			}
 		};
 		tOrder.setModel(tableModel);
+		
+		tOrder.getColumnModel().getColumn(0).setMaxWidth(50);
+		tOrder.getColumnModel().getColumn(2).setMaxWidth(50);
+		tOrder.getColumnModel().getColumn(3).setMaxWidth(50);
+		tOrder.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tOrder.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		tOrder.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		tOrder.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		
 		setStyle(tOrder);
 		
 		modelOrder = (DefaultTableModel)tOrder.getModel();

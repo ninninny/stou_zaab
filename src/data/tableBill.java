@@ -6,10 +6,12 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 //import appUI.editFood;
-import appUI.mainMenu; 
+import appUI.mainMenu;
+import appUI.reportBill;
 import appUI.styleSetter;
 
 public class tableBill extends styleSetter{
@@ -17,7 +19,7 @@ public class tableBill extends styleSetter{
 	private DefaultTableModel modelBill;
 	JTable tBill;
 	Connection conn = MyConnect.getConnection();
-	int foodID;
+	int foodID, billID;
 	String foodName, foodPrice;
 	public ArrayList<Integer> billList;
 	
@@ -37,21 +39,31 @@ public class tableBill extends styleSetter{
 			}
 		};
 		tBill.setModel(tableModel);
+		
+		tBill.getColumnModel().getColumn(0).setMaxWidth(50);
+		tBill.getColumnModel().getColumn(2).setMaxWidth(80);
+		tBill.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tBill.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		tBill.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+		tBill.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+
+		
 		setStyle(tBill);
 		
 		modelBill = (DefaultTableModel)tBill.getModel();
 		showData();
 		
-		/*tOrder.addMouseListener(new MouseAdapter() {
+		tBill.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
-				int rowClick = tOrder.getSelectedRow();
-				foodID = (int) tOrder.getValueAt(rowClick, 0);
-	            foodName = tOrder.getValueAt(rowClick, 1).toString();
-	            foodPrice = tOrder.getValueAt(rowClick, 2).toString();
-	            editFood.getData(foodID,foodName,foodPrice);
-	            mainMenu.toEditFood();
+				int rowClick = tBill.getSelectedRow();
+				billID = Integer.parseInt(tBill.getValueAt(rowClick, 0).toString());
+	            reportBill.getData(billID);
+	            mainMenu.toReportBill();
 			}
-		});*/
+		});
 
 		return tBill;
 	}
@@ -78,7 +90,7 @@ public class tableBill extends styleSetter{
 					total = "ยังไม่ได้ชำระ";
 				}
 				modelBill.setValueAt(total, row, 1);
-                modelBill.setValueAt("Detail", row, 2);
+                modelBill.setValueAt("เรียกดู", row, 2);
 
 				row++;
 			}

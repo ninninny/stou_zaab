@@ -4,6 +4,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import appUI.*;
@@ -32,6 +33,16 @@ public class tableStaff extends styleSetter{
 			}
 		};
 		tStaff.setModel(tableModel);
+		
+		tStaff.getColumnModel().getColumn(0).setMaxWidth(40);
+		tStaff.getColumnModel().getColumn(3).setMaxWidth(50);
+		tStaff.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tStaff.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		tStaff.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		
 		setStyle(tStaff);
 		
 		modelStaff = (DefaultTableModel)tStaff.getModel();

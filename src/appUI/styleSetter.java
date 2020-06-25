@@ -72,6 +72,7 @@ public class styleSetter {
 		t.setShowGrid(false);
 		t.setShowHorizontalLines(true);
 		t.setGridColor(colorLightGray);
+		
 		JTableHeader header = t.getTableHeader();
 	    header.setBackground(colorWhite);
 	    header.setForeground(colorBlack);
@@ -100,7 +101,7 @@ public class styleSetter {
 		} else if(t=="small") {
 			e.setFont(new Font(themeFont, Font.PLAIN, 11));
 		} else {
-			e.setFont(new Font(themeFont, Font.PLAIN, 12));
+			e.setFont(new Font(themeFont, Font.PLAIN, 14));
 		}
 	}
 

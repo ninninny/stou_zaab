@@ -6,6 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import appUI.editFood;
@@ -37,6 +38,17 @@ public class tableFood extends styleSetter{
 			}
 		};
 		tFood.setModel(tableModel);
+		tFood.getColumnModel().getColumn(0).setMaxWidth(40);
+		tFood.getColumnModel().getColumn(2).setMaxWidth(80);
+		tFood.getColumnModel().getColumn(3).setMaxWidth(50);
+		tFood.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+		
+		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+		centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+		tFood.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+		tFood.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+		tFood.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+		
 		setStyle(tFood);
 		
 		modelFood = (DefaultTableModel)tFood.getModel();

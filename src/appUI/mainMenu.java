@@ -172,6 +172,14 @@ public class mainMenu  extends styleSetter implements ActionListener{
 		mainBody.repaint();
 	}
 	
+	public static void toReportBill() {
+		mainBody.removeAll();
+		reportBill p = new reportBill();
+		mainBody.add(p.setPage());
+		mainBody.revalidate();
+		mainBody.repaint();
+	}
+	
 	public void actionPerformed(ActionEvent e){  
 		if(e.getSource() == btnMainMenu) {
 			toHome();
