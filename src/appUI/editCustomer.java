@@ -53,8 +53,8 @@ public class editCustomer extends styleSetter implements ActionListener{
 		return editCustomer;
 	}
 	
-	public static void getData(int a, String b, String c) {
-		custID = a;
+	public static void getData(int custID2, String b, String c) {
+		custID = custID2;
 		custName = b;
 		custPhone = c;
 	}

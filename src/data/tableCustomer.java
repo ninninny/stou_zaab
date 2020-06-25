@@ -13,8 +13,8 @@ public class tableCustomer extends styleSetter{
 	private DefaultTableModel modelCustomer;
 	JTable tCustomer;
 	Connection conn = MyConnect.getConnection();
-	int custID;
 	String custName, custPhone;
+	int custID;
 	
 	public JTable dataTable() {
 		
@@ -25,7 +25,7 @@ public class tableCustomer extends styleSetter{
 				{null, null, null, null},
 				{null, null, null, null}
 		};
-		String columns[] = {"","√“¬™◊ËÕ","‡∫Õ√Ï‚∑√»—æ∑Ï", ""};
+		String columns[] = {"","Name","Phone Number", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -40,7 +40,7 @@ public class tableCustomer extends styleSetter{
 		tCustomer.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				int rowClick = tCustomer.getSelectedRow();
-				custID = (int) tCustomer.getValueAt(rowClick, 0);
+				custID = Integer.parseInt(tCustomer.getValueAt(rowClick, 0).toString());
 				custName = tCustomer.getValueAt(rowClick, 1).toString();
 				custPhone = tCustomer.getValueAt(rowClick, 2).toString();
 	            editCustomer.getData(custID,custName,custPhone);
@@ -64,7 +64,7 @@ public class tableCustomer extends styleSetter{
 			int row = 0;
 			while(rs.next()) {
 				modelCustomer.addRow(new Object[0]);
-				modelCustomer.setValueAt(rs.getInt("cus_id"), row, 0);
+				modelCustomer.setValueAt(rs.getString("cus_id"), row, 0);
 				modelCustomer.setValueAt(rs.getString("cus_name"), row, 1);
 				modelCustomer.setValueAt(rs.getString("cus_phone"), row, 2);
 				modelCustomer.setValueAt("·°È‰¢", row, 3);
@@ -78,7 +78,7 @@ public class tableCustomer extends styleSetter{
 	
 	public void insertData(String name, String phone) {
 		try {
-			String sql = "INSERT INTO customer (cus_id, cus_name, cus_phone) values(null,?,?)";
+			String sql = "INSERT INTO customer (cus_name, cus_phone) values(?,?)";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1,name);
 			pre.setString(2,phone);
@@ -108,11 +108,11 @@ public class tableCustomer extends styleSetter{
 		}
 	}
 	
-	public void deleteData(int id) {
+	public void deleteData(int custID2) {
 		try {
 			String sql = "DELETE FROM customer WHERE cus_id = ? ";
 			PreparedStatement pre = conn.prepareStatement(sql);
-			pre.setInt(1,id);
+			pre.setInt(1,custID2);
 			
 			if(pre.executeUpdate() != -1) {
 				mainMenu.toCustomer();
@@ -120,6 +120,11 @@ public class tableCustomer extends styleSetter{
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
+	}
+
+	public void editData(String custID2, String trim, String trim2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

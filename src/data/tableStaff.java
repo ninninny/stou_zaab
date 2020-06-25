@@ -25,7 +25,7 @@ public class tableStaff extends styleSetter{
 				{null, null, null, null},
 				{null, null, null, null}
 		};
-		String columns[] = {"","√“¬™◊ËÕ","‡∫Õ√Ï‚∑√»—æ∑Ï", ""};
+		String columns[] = {"","Name","Phone", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -40,7 +40,7 @@ public class tableStaff extends styleSetter{
 		tStaff.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent me) {
 				int rowClick = tStaff.getSelectedRow();
-				staffID = (int) tStaff.getValueAt(rowClick, 0);
+				staffID = Integer.parseInt (tStaff.getValueAt(rowClick, 0).toString());
 				staffName = tStaff.getValueAt(rowClick, 1).toString();
 				staffPhone = tStaff.getValueAt(rowClick, 2).toString();
 	            editStaff.getData(staffID,staffName,staffPhone);
@@ -64,7 +64,7 @@ public class tableStaff extends styleSetter{
 			int row = 0;
 			while(rs.next()) {
 				modelStaff.addRow(new Object[0]);
-				modelStaff.setValueAt(rs.getInt("staff_id"), row, 0);
+				modelStaff.setValueAt(rs.getString("staff_id"), row, 0);
 				modelStaff.setValueAt(rs.getString("staff_name"), row, 1);
 				modelStaff.setValueAt(rs.getString("staff_phone"), row, 2);
 				modelStaff.setValueAt("·°È‰¢", row, 3);
@@ -78,7 +78,7 @@ public class tableStaff extends styleSetter{
 	
 	public void insertData(String name, String phone) {
 		try {
-			String sql = "INSERT INTO staff (staff_id, staff_name, staff_phone) values(null,?,?)";
+			String sql = "INSERT INTO staff (staff_name, staff_phone) values(?,?)";
 			PreparedStatement pre = conn.prepareStatement(sql);
 			pre.setString(1,name);
 			pre.setString(2,phone);

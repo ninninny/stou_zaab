@@ -30,7 +30,7 @@ public class tableBill extends styleSetter{
 				{null, null, null},
 				{null, null, null}
 		};
-		String columns[] = {"‡≈¢∑’Ë∫‘≈","¬Õ¥√«¡(∫“∑)",""};
+		String columns[] = {"Bill.no","Total",""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -63,18 +63,23 @@ public class tableBill extends styleSetter{
 				modelBill.removeRow(totalRow);
 				totalRow--;
 			}
-			String sql = "SELECT * FROM bill "
-					+ " INNER JOIN odr ON bill.bill_odr_id = odr.odr_id"
-					+" INNER JOIN customer ON bill_cust_id = customer.cus_id"
-					+ " INNER JOIN staff ON bill_staff_id = staff.staff_id";
+			String sql = "SELECT * FROM bill ";
+					//+ " INNER JOIN odr ON bill.bill_odr_id = odr.odr_id"
+					//+" INNER JOIN customer ON bill_cust_id = customer.cus_id"
+					//+ " INNER JOIN staff ON bill_staff_id = staff.staff_id";
 			ResultSet rs = conn.createStatement().executeQuery(sql);
 			
 			int row = 0;
 			while(rs.next()) {
 				modelBill.addRow(new Object[0]);
 				modelBill.setValueAt(rs.getString("bill_id"), row, 0);
-				modelBill.setValueAt(rs.getString("bill_total"), row, 1);
-				modelBill.setValueAt("‡™Á§∫‘≈", row, 2);
+				String total = rs.getString("bill_total");
+				if(Integer.parseInt(total)== 0) {
+					total = "¬—ß‰¡Ë‰¥È™”√–";
+				}
+				modelBill.setValueAt(total, row, 1);
+                modelBill.setValueAt("Detail", row, 2);
+
 				row++;
 			}
 			tBill.setModel(modelBill);
@@ -98,21 +103,48 @@ public class tableBill extends styleSetter{
 	}
 	
 	public void insertData(String name, int amount) {
-		/*try {
-			String sql1 = "INSERT INTO bill  (bill_id, bill_total) values(null,0)";
-			PreparedStatement pre1 = conn.prepareStatement(sql1);
-			
-			String sql2 = "INSERT INTO order (odr_id, odr_food_id, odr_amount, odr_price, odr_bill_id) values(null,?,?,?,?)";
-			PreparedStatement pre2 = conn.prepareStatement(sql2);
-			//pre2.setString(1,name);
-			pre2.setInt(3,amount);
-			
-			if(pre2.executeUpdate() != -1) {
-				mainMenu.toOrder();
+		try {
+			String sqlSearchFood = "SELECT * FROM food";
+			System.out.println(sqlSearchFood);
+			ResultSet searchFood  = conn.createStatement().executeQuery(sqlSearchFood);
+			while(searchFood.next()) {
+				String food_name = searchFood.getString(2);
+				if(food_name.contentEquals(name)) {
+					int food_id = searchFood.getInt(1);
+					int food_cost = searchFood.getInt(3);
+					System.out.println(food_id+food_name+food_cost);
+					
+					String sql1 = "INSERT INTO bill  (bill_id, bill_total) values(null,0)";
+					PreparedStatement pre1 = conn.prepareStatement(sql1,Statement.RETURN_GENERATED_KEYS);
+					
+					if(pre1.executeUpdate() < 1) {
+						throw new SQLException("Cannot insert into bill");
+					}
+					try(ResultSet generatedKey = pre1.getGeneratedKeys() ) {
+						if(generatedKey.next()) {
+							 int  bill_id = generatedKey.getInt(1);
+							 System.out.println(bill_id);//for debug
+							 String sql2 = "INSERT INTO odr (odr_id, odr_food_id, odr_amount, odr_price, odr_bill_id) values(null,?,?,?,?)";
+								PreparedStatement pre2 = conn.prepareStatement(sql2);
+								pre2.setInt(1,food_id);
+								pre2.setInt(2,amount);
+								pre2.setDouble(3, food_cost);
+								pre2.setInt(4, bill_id);
+							
+								if(pre2.executeUpdate() != -1) {
+									mainMenu.toOrder();
+								}
+						}
+					}
+					
+					return;
+				}
 			}
+			throw new SQLException("Cannot find food_name:"+name);
+			
 		} catch(SQLException e){
 			e.printStackTrace();
-		}*/
+		}
 	}
 	
 	public void deleteData(int id) {

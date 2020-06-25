@@ -30,7 +30,7 @@ public class tableFood extends styleSetter{
 				{null, null, null, null},
 				{null, null, null, null}
 		};
-		String columns[] = {"","ชื่อเมนู","ราคา", ""};
+		String columns[] = {"","Menu","Price", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;

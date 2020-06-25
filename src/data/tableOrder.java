@@ -27,7 +27,7 @@ public class tableOrder extends styleSetter{
 				{null, null, null, null},
 				{null, null, null, null}
 		};
-		String columns[] = {"บิลที่","อาหาร", "จำนวน", ""};
+		String columns[] = {"Bill.no","Menu", "Amount", ""};
 		DefaultTableModel tableModel = new DefaultTableModel(data,columns) {
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -81,16 +81,33 @@ public class tableOrder extends styleSetter{
 	
 	public void insertData(String food, int amount, int billID) {
 		try {
-			String sql = "INSERT INTO order (order_id, odr_food_id, order_amount, adr_price, odr_bill_id) values(null,?,?,?,?)";
-			PreparedStatement pre = conn.prepareStatement(sql);
-			//pre.setInt(1,foodID);
-			pre.setInt(2,amount);
-			//pre.setInt(3, price);
-			pre.setInt(4, billID);
-			
-			if(pre.executeUpdate() != -1) {
-				mainMenu.toFood();
+			String sqlSearchFood = "SELECT * FROM food";
+			System.out.println(sqlSearchFood);
+			ResultSet searchFood  = conn.createStatement().executeQuery(sqlSearchFood);
+			while(searchFood.next()) {
+				String food_name = searchFood.getString(2);
+				if(food_name.contentEquals(food)) {
+					int food_id = searchFood.getInt(1);
+					int food_cost = searchFood.getInt(3);
+					System.out.println(food_id+food_name+food_cost);
+					
+					String sql = "INSERT INTO odr (odr_id, odr_food_id, odr_amount, odr_price, odr_bill_id) values(null,?,?,?,?)";
+					PreparedStatement pre = conn.prepareStatement(sql);
+					pre.setInt(1,food_id);
+					pre.setInt(2,amount);
+					pre.setInt(3, food_cost);
+					pre.setInt(4, billID);
+					
+					System.out.println(pre.toString());
+
+					if(pre.executeUpdate() != -1) {
+						mainMenu.toOrder();
+					}
+					return ;
+				}
 			}
+			throw new SQLException("Cannot find food_name:"+food);
+			
 		} catch(SQLException e){
 			e.printStackTrace();
 		}
